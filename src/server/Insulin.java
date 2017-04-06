@@ -6,11 +6,11 @@ import javax.jws.WebMethod;
 @WebService
 public class Insulin {
 	@WebMethod
-	public int mealtimeInsulinDose(int mealCarbohydrates, int carbohydratesBy1Unit, int bloodSugarBeforeMeal, int targetBloodSugarBeforeMeal, int individualSensivity) {
+	public int mealtimeInsulinDose(int carbohydrateAmount, int carbohydrateToInsulinRatio, int preMealBloodSugar, int targetBloodSugar, int personalSensitivity) {
 		
-		if (mealCarbohydrates < 60 || mealCarbohydrates > 120 || carbohydratesBy1Unit < 10 || carbohydratesBy1Unit > 15 
-			|| bloodSugarBeforeMeal < 120 || bloodSugarBeforeMeal > 160 || targetBloodSugarBeforeMeal < 80 
-			|| targetBloodSugarBeforeMeal > 120 || individualSensivity < 15 || individualSensivity > 100){
+		if (carbohydrateAmount < 60 || carbohydrateAmount > 120 || carbohydrateToInsulinRatio < 10 || carbohydrateToInsulinRatio > 15 
+			|| preMealBloodSugar < 120 || preMealBloodSugar > 160 || targetBloodSugar < 80 
+			|| targetBloodSugar > 120 || personalSensitivity < 15 || personalSensitivity > 100){
 			return 0;
 		}
 		else{
@@ -20,12 +20,12 @@ public class Insulin {
 
 
 	@WebMethod
-	public int backgroundInsulinDose(int weight){
+	public int backgroundInsulinDose(int bodyWeight){
 		return 0;
 	}
 
 	@WebMethod
-	public int personalSensitivityToInsulin(int physicalActivityLevel, int[] physicalActivityLevels, int[] bloodSugarLevels){
+	public int personalSensitivityToInsulin(int physicalActivityLevel, int[] physicalActivitySamples, int[] bloodSugarDropSamples){
 		return 0;
 	}
 
