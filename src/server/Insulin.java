@@ -2,8 +2,7 @@ package server;
 
 import javax.jws.WebService;
 import javax.jws.WebMethod;
-import java.math.BigDecimal;
-import java.math.MathContext;
+import java.math.*;
 
 @WebService
 public class Insulin { //return the number of units of rapid acting insulin needed after meal
@@ -46,8 +45,48 @@ public class Insulin { //return the number of units of rapid acting insulin need
 	}
 
 	@WebMethod
-	public int personalSensitivityToInsulin(int physicalActivityLevel, int[] physicalActivitySamples, int[] bloodSugarDropSamples){
-		return 0;
-	}
+	public int personalSensitivityToInsulin(int physicalActivityLevel, int[] physicalActivitySamples, int[] bloodSugarDropSamples){ //return the drop in blood sugar resulting from one unit of insulin
+		if (physicalActivityLevel < 0 || physicalActivityLevel > 10 || physicalActivitySamples.length != bloodSugarDropSamples.length){ //both have to have K samples
+			return 0;
+		}
+		if (physicalActivitySamples.length < 2 || physicalActivitySamples.length > 10){
+			return 0;
+		}
 
+		BigDecimal sumx = new BigDecimal(0);
+		BigDecimal sumy = new BigDecimal(0);
+		//BigDecimal sumx2 = new BigDecimal(0);
+		//BigDecimal sumy2 = new BigDecimal(0);
+		//BigDecimal sumxy = new BigDecimal(0);
+
+		for(int i = 0; i < physicalActivitySamples.length; i++) {
+			if(physicalActivitySamples[i] < 0 || physicalActivitySamples[i] > 10 || bloodSugarDropSamples[i] < 15 || bloodSugarDropSamples[i] > 100){
+				return 0;
+			}
+
+			sumx = sumx.add(new BigDecimal(physicalActivitySamples[i]));
+			sumy = sumy.add(new BigDecimal(bloodSugarDropSamples[i]));
+			//sumx2 = sumx2.add(new BigDecimal(physicalActivitySamples[i] * physicalActivitySamples[i]));
+			//sumy2 = sumy2.add(new BigDecimal(bloodSugarDropSamples[i] * bloodSugarDropSamples[i]));
+			//sumxy = sumxy.add(new BigDecimal(physicalActivitySamples[i] * bloodSugarDropSamples[i]));
+		}
+
+		BigDecimal numberSamples = new BigDecimal(physicalActivitySamples.length);
+		BigDecimal meanx = sumx.divide(numberSamples, MathContext.DECIMAL128);
+		BigDecimal meany = sumy.divide(numberSamples, MathContext.DECIMAL128);
+		BigDecimal beta = new BigDecimal(0);
+		BigDecimal betaUp = new BigDecimal(0);
+		BigDecimal betaDown = new BigDecimal(0);
+		for(int i = 0; i < physicalActivitySamples.length; i++) {
+			betaUp = betaUp.add(new BigDecimal(physicalActivitySamples[i]).subtract(meanx).multiply(new BigDecimal(bloodSugarDropSamples[i]).subtract(meany)));
+			betaDown = betaDown.add( (new BigDecimal(physicalActivitySamples[i]).subtract(meanx)).pow(2) );
+		}
+		beta = betaUp.divide(betaDown, MathContext.DECIMAL128);
+		//BigDecimal beta = (numberSamples.multiply(sumxy).subtract(sumx.multiply(sumy))).divide(numberSamples.multiply(sumx2).subtract(sumx.multiply(sumx)), MathContext.DECIMAL128);
+		BigDecimal alpha = meany.subtract(beta.multiply(meanx));
+		BigDecimal physicalActivityLevelDecimal = new BigDecimal(physicalActivityLevel);
+		BigDecimal result = alpha.add(beta).multiply(physicalActivityLevelDecimal);
+
+		return (int) Math.ceil(result.doubleValue());
+	}
 }
