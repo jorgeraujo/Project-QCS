@@ -1,125 +1,125 @@
 <html>
-  <head>
-      <link rel="stylesheet" type="text/css" href="style.css">
-      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="charset" content="utf-8">
-      <title>Insulin Calculator</title>
-  </head>
-  <body>
-      <div id="title">
-        <p>Insulin Calculator</p>
-      </div>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="charset" content="utf-8">
+    <title>Insulin Calculator</title>
+</head>
+<body>
+<div id="title">
+    <p>Insulin Calculator</p>
+</div>
 
-      </div>
-      <div class="dropdown">
-          <button onclick="myFunction()" class="dropbtn">Select Your Type of Insulin</button>
-          <div id="myDropdown" class="dropdown-content">
-              <button onclick="chooseType('div1')" class="dropdown-button" href="#">Mealtime Insulin Dose - Standard Insulin Sensitivity</button>
-              <button onclick="chooseType('div2')" class="dropdown-button" href="#">Mealtime Insulin Dose - Personal Insulin Sensitivity</button>
-              <button onclick="chooseType('div3')" class="dropdown-button" href="#">Background Insulin Dose</button>
-          </div>
-      </div>
-      
-      <div id="testDiv" class="test">
-        <p>Meal Time Insulin Dose</p>
-        <div class="formulary-div">
-          <form action="mealtimeInsulinDose.jsp" method="get">
+</div>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Select Your Type of Insulin</button>
+    <div id="myDropdown" class="dropdown-content">
+        <button onclick="chooseType('div1')" class="dropdown-button" href="#">Mealtime Insulin Dose - Standard Insulin Sensitivity</button>
+        <button onclick="chooseType('div2')" class="dropdown-button" href="#">Mealtime Insulin Dose - Personal Insulin Sensitivity</button>
+        <button onclick="chooseType('div3')" class="dropdown-button" href="#">Background Insulin Dose</button>
+    </div>
+</div>
+
+<div id="testDiv" class="test">
+    <p>Meal Time Insulin Dose</p>
+    <div class="formulary-div">
+        <form action="mealtimeInsulinDose.jsp" method="get">
 
             <ul>
-              <li>Total Grams of Carbohydrates in the Meal: <input type="number" id="1_1" name="1_1" min="60" max="120"></li>
-              <li>Total Grams Processed by 1 unit of rapid acting insulin: <input type="number" value="12" id="1_2" name="1_2" min="10" max="15"></li>
-              <li>Actual blood sugar level measured before the meal: <input type="number" id="1_3" name="1_3" min="120" max="250"></li>
-              <li>Target blood sugar before the meal: <input type="number" id="1_4" name="1_4" min="80" max="120"></li>
-              <li>Individual Sensitivity: <input type="number" id="1_5" name="1_5" value ="50" min="15" max="100"></li>
+                <li>Total Grams of Carbohydrates in the Meal: <input type="number" id="input1_1" name="input1_1" min="60" max="120"></li>
+                <li>Total Grams Processed by 1 unit of rapid acting insulin: <input type="number" value="12" id="input1_2" name="input1_2" min="10" max="15"></li>
+                <li>Actual blood sugar level measured before the meal: <input type="number" id="input1_3" name="input1_3" min="120" max="250"></li>
+                <li>Target blood sugar before the meal: <input type="number" id="input1_4" name="input1_4" min="80" max="120"></li>
+                <li>Individual Sensitivity: <input type="number" id="input1_5" name="input1_5" value ="50" min="15" max="100"></li>
             </ul>
 
             <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Insuline</button>
 
-          </form>
-        </div>
-        
-      </div>
+        </form>
+    </div>
 
-      <div id="testDiv2" class="test">
-        <p>Background Insulin Dose</p>
-        <div class="formulary-div">
-          <form action="backgroundInsulinDose.jsp" method="get">
+</div>
+
+<div id="testDiv2" class="test">
+    <p>Background Insulin Dose</p>
+    <div class="formulary-div">
+        <form action="backgroundInsulinDose.jsp" method="get">
 
             <ul>
-              <li>Weight in kilograms: <input type="number" id="3_1" name="3_1" min="60" max="120"></li>
+                <li>Weight in kilograms: <input type="number" id="input3_1" name="input3_1" min="60" max="120"></li>
             </ul>
 
             <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Insuline</button>
 
-          </form>
-        </div>
-        
-      </div>
+        </form>
+    </div>
 
-       <div id="testDiv3" class="test">
-        <p>Personal Sensitivity To Insulin</p>
-        <div class="formulary-div">
-          <form action="personalSensitivityToInsulin.jsp" method="get">
+</div>
+
+<div id="testDiv3" class="test">
+    <p>Personal Sensitivity To Insulin</p>
+    <div class="formulary-div">
+        <form action="personalSensitivityToInsulin.jsp" method="get">
 
             <ul>
-              <li>Today's Physical Activity Level <input type="number" id="2_1" name="2_1" min="0" max="10"></li>
-              <li>Number of Samples of Physical Activity Level in Some Day <input type="number" id="2_2" name="2_2" min="0" max="10"></li>
-              <li>Samples of Drops in Blood Sugar  <input type="number" id="2_3" name="2_3" min="15" max="100"></li>
+                <li>Today's Physical Activity Level <input type="number" id="input2_1" name="input2_1" min="0" max="10"></li>
+                <li>Number of Samples of Physical Activity Level in Some Day <input type="number" id="input2_2" name="input2_2" min="0" max="10"></li>
+                <li>Samples of Drops in Blood Sugar  <input type="number" id="input2_3" name="input2_3" min="15" max="100"></li>
             </ul>
 
             <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Sensitivity</button>
 
-          </form>
-        </div>
-        
-      </div>
+        </form>
+    </div>
+
+</div>
 
 
 
-      <script>
+<script>
 
-      /* When the user clicks on the button, 
-      toggle between hiding and showing the dropdown content */
-      function myFunction() {
-          document.getElementById("myDropdown").classList.toggle("show");
-      }
+    /* When the user clicks on the button,
+     toggle between hiding and showing the dropdown content */
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
 
-      function chooseType(type){
+    function chooseType(type){
 
-          document.getElementById("testDiv").classList.remove('show');
-          document.getElementById("testDiv2").classList.remove('show');
-          document.getElementById("testDiv3").classList.remove('show');
+        document.getElementById("testDiv").classList.remove('show');
+        document.getElementById("testDiv2").classList.remove('show');
+        document.getElementById("testDiv3").classList.remove('show');
 
-          if(type=="div1"){
+        if(type=="div1"){
             document.getElementById("testDiv").classList.toggle('show');
             document.getElementById("myDropdown").classList.remove("show");
-          }else if(type=="div2"){
+        }else if(type=="div2"){
             document.getElementById("testDiv2").classList.toggle('show');
             document.getElementById("myDropdown").classList.remove("show");
-          }else if(type=="div3"){
+        }else if(type=="div3"){
             document.getElementById("testDiv3").classList.toggle('show');
             document.getElementById("myDropdown").classList.remove("show");
-          }
+        }
 
-      }
+    }
 
-      // Close the dropdown menu if the user clicks outside of it
-      window.onclick = function(event) {
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
 
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          var i;
-          for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                testFunction();
-                openDropdown.classList.remove('show');
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    testFunction();
+                    openDropdown.classList.remove('show');
+                }
             }
-          }
         }
-      }
-      </script>
+    }
+</script>
 
-  </body>
+</body>
 </html>

@@ -15,12 +15,20 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <jsp:useBean id="backgroundInsulinDose" class="BackgroundInsulinDose" scope="application"/>
+    <jsp:useBean id="backgroundInsulinDose" class="types.BackgroundInsulinDose" scope="application"/>
     <jsp:setProperty name="backgroundInsulinDose" property="*"/>
 
     <title>Background Insulin Calculator (Results)</title>
 </head>
 <body>
+
+<div class="alert alert-success" role="alert" style="margin:20px;">
+
+    <h3 style="margin-left: 10px">Number of insulin units: </h3>
+
+    <h2 style="margin-left: 10px"><%= backgroundInsulinDose.getResult()%></h2>
+
+</div>
 
 </body>
 </html>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: paulo
-  Date: 11-05-2015
-  Time: 14:26
+  User: Afonso
+  Date: 16/05/2017
+  Time: 12:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -15,7 +15,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <jsp:useBean id="backgroundInsulinDose" class="services.BackgroundInsulinDose" scope="application"/>
+    <jsp:useBean id="backgroundInsulinDose" class="types.BackgroundInsulinDose" scope="application"/>
     <jsp:setProperty name="backgroundInsulinDose" property="*"/>
 
     <title>Background Insulin Calculator (Results)</title>
@@ -29,34 +29,6 @@
     <h2 style="margin-left: 10px"><%= backgroundInsulinDose.getResult()%></h2>
 
 </div>
-
-<br>
-<br>
-<div class="container">
-
-    <div class="col-sm-4">
-        <button class="btn btn-primary btn-lg" id="button" style="margin-left: 10px">Show technical information</button>
-    </div>
-
-    <div class="col-sm-4">
-        <button id="myButton" class="btn btn-primary btn-lg" type="submit">Back to Calculator</button>
-    </div>
-    <script type="text/javascript">
-        document.getElementById("myButton").onclick = function () {
-            location.href = "index.html";
-        };
-    </script>
-
-</div>
-
-<script>
-
-    $("#button").click(function(){
-        $("#details").toggle();
-    });
-
-</script>
-
 
 </body>
 </html>
