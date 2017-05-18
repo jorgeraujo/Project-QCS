@@ -28,6 +28,8 @@
 
     <h2 style="margin-left: 10px"><%= backgroundInsulinDose.getResult()%></h2>
 
+    <h3 style="margin-left: 10px"><%= backgroundInsulinDose.getWebServiceName()%></h3>
+
 </div>
 
 </body>
