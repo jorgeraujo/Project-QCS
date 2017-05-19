@@ -3,6 +3,8 @@ package types;
 import client.Insulin;
 import client.InsulinService;
 
+import java.net.URL;
+
 /**
  * Created by Afonso on 17/05/2017.
  */
@@ -12,8 +14,10 @@ public class MealtimeInsulinDose {
     private int input1_3;
     private int input1_4;
     private int input1_5;
-    private MealtimeInsulinDose.Webservice webservices[] = new MealtimeInsulinDose.Webservice[1];
-    private int results[] = new int[1];
+    private int n = 3;
+    private int finalResult;
+    private Webservice webservices[] = new Webservice[n];
+    private int results[] = new int[n];
 
     public int getInput1_1() {
         return input1_1;
@@ -57,21 +61,47 @@ public class MealtimeInsulinDose {
 
 
 
-    public String getResult() {
-        webservices[0] = new Webservice();
-        webservices[0].start();
-        try {
-            webservices[0].join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public String getResult(){
+        runThreads();
+        finalResult = Voter.vote(results, n);
+
+        if (finalResult != -1){
+            return Integer.toString(finalResult);
         }
-        //System.out.println("Results: "+webservices[0].getResult());
-        results[0] = webservices[0].getResult();
-        return Integer.toString(results[0]);
+        else{
+            return "Bad results, try again";
+        }
+    }
+
+    public void runThreads() {
+
+        for (int i = 0; i < n; i++){
+            webservices[i] = new MealtimeInsulinDose.Webservice(""+i);
+            webservices[i].start();
+        }
+
+        for (int i = 0; i < n; i++){
+            try {
+                webservices[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            results[i] = webservices[i].getResult();
+        }
+
+    }
+
+    public String getWebServiceName(int i){
+        return this.webservices[i].name;
     }
 
     public class Webservice extends Thread{
         private int result;
+        private String name;
+
+        public Webservice(String name){
+            this.name = name;
+        }
 
         public int getResult() {
             return this.result;
@@ -79,13 +109,12 @@ public class MealtimeInsulinDose {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService();
+                InsulinService service = new InsulinService(new URL("http://localhost:8081/insulin?wsdl"));
                 Insulin proxy = service.getInsulinPort();
-                result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(), getInput1_4(), getInput1_5());
+                result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
             } catch (Exception e) {
                 System.out.println(e);
             }
-            //System.out.println(result);
         }
     }
 

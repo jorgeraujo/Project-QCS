@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Afonso
-  Date: 15/0/2017
+  Date: 15/05/2017
   Time: 16:57
   To change this template use File | Settings | File Templates.
 --%>
@@ -25,28 +25,40 @@
 <body>
 
 
-<div class="results_title">
-    <p>Number of insulin units:</p>
-</div>
-<div id="result">
-    <p><%= mealtimeInsulinDose.getResult()%></p>
-</div>
-<div id="buttons-box">
-    <div id="buttons">
-        <button id="back-button"><a href="index.html">Back to initial menu</a></button>
-        <button id="details-button" onClick="myFunction()">See details</button>
+    <div class="results_title">
+        <p>Number of insulin units:</p>
     </div>
-</div>
-<div id="panel">
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div>
+    <div id="result">
+        <p><%= mealtimeInsulinDose.getResult()%></p>
+    </div>
+    <div id="buttons-box">
+        <div id="buttons">
+            <button id="back-button"><a href="index.html">Back to initial menu</a></button>
+            <button id="details-button" onClick="myFunction()">See details</button>
+        </div>
+    </div>
+    <div id="panel">
+        <ul>
+            <li><%= mealtimeInsulinDose.getWebServiceName(0)%></li>
+            <li><%= mealtimeInsulinDose.getWebServiceName(1)%></li>
+            <li><%= mealtimeInsulinDose.getWebServiceName(2)%></li>
+        </ul>
+    </div>
 
-</div>
+    <script>
+
+        function myFunction() {
+
+            var panel = document.getElementById("panel");
+            if (panel.style.display === "-webkit-box") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "-webkit-box";
+            }
+
+        }
+
+    </script>
 
 </body>
 </html>

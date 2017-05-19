@@ -2,11 +2,15 @@ package types;
 import client.Insulin;
 import client.InsulinService;
 
+import java.net.URL;
+
 public class BackgroundInsulinDose {
 
     private int input3_1;
-    private Webservice webservices[] = new Webservice[1];
-    private int results[] = new int[1];
+    private int n = 3;
+    private Webservice webservices[] = new Webservice[n];
+    private int results[] = new int[n];
+    private int finalResult;
 
     public int getInput3_1() {
         return input3_1;
@@ -16,21 +20,39 @@ public class BackgroundInsulinDose {
         this.input3_1 = input3_1;
     }
 
-    public String getResult() {
-        webservices[0] = new Webservice("*name to give*");
-        webservices[0].start();
-        try {
-            webservices[0].join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public String getResult(){
+        runThreads();
+        finalResult = Voter.vote(results, n);
+
+        if (finalResult != -1){
+            return Integer.toString(finalResult);
         }
-        //System.out.println("Results: "+webservices[0].getResult());
-        results[0] = webservices[0].getResult();
-        return Integer.toString(results[0]);
+        else{
+            return "Bad results, try again";
+        }
     }
 
-    public String getWebServiceName(){
-        return this.webservices[0].name;
+    public void runThreads() {
+
+        for (int i = 0; i < n; i++){
+            webservices[i] = new Webservice(""+i);
+            webservices[i].start();
+        }
+
+        for (int i = 0; i < n; i++){
+            try {
+                webservices[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //System.out.println("Results: "+webservices[i].getResult());
+            results[i] = webservices[i].getResult();
+        }
+
+    }
+
+    public String getWebServiceName(int i){
+        return this.webservices[i].name;
     }
 
     public class Webservice extends Thread{
@@ -47,13 +69,12 @@ public class BackgroundInsulinDose {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService();
+                InsulinService service = new InsulinService(new URL("http://localhost:8081/insulin?wsdl"));
                 Insulin proxy = service.getInsulinPort();
                 result = proxy.backgroundInsulinDose(getInput3_1());
             } catch (Exception e) {
                 System.out.println(e);
             }
-            //System.out.println(result);
         }
     }
 

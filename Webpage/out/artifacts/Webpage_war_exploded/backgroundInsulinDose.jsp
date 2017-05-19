@@ -39,11 +39,10 @@
     </div>
     <div id="panel">
         <ul>
-            <li><%= backgroundInsulinDose.getWebServiceName()%></li>
-            <li><%= backgroundInsulinDose.getWebServiceName()%></li>
-            <li><%= backgroundInsulinDose.getWebServiceName()%></li>
-            <li><%= backgroundInsulinDose.getWebServiceName()%></li>
-        </ul>
+            <li><%= backgroundInsulinDose.getWebServiceName(0)%></li>
+            <li><%= backgroundInsulinDose.getWebServiceName(1)%></li>
+            <li><%= backgroundInsulinDose.getWebServiceName(2)%></li>
+            </u l>
     </div>
 
 </div>
