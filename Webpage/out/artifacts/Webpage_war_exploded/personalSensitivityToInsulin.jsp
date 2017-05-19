@@ -45,5 +45,21 @@
     </ul>
 </div>
 
+<script>
+
+    function myFunction() {
+
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "-webkit-box") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "-webkit-box";
+        }
+
+    }
+
+</script>
+
+
 </body>
 </html>

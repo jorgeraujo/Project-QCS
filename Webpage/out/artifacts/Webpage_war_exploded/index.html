@@ -63,20 +63,9 @@
         <div class="formulary-div">
           <form action="personalSensitivityToInsulin.jsp" method="get">
 
-            <p id="physic_title">Today's Physical Activity Level <input type="number" id="input2_1" name="input2_1" min="0" max="10"></li>
-            <p class="titles" id="plevel1">Physical Activity Level</p> <!--<input type="number" id="input2_2" name="input2_2" min="0" max="10"></li>-->
-            <p class="titles" id="plevel2"> Blood Sugar</p> <!--<input type="number" id="input2_3" name="input2_3" min="15" max="100"></li>-->
-            <div class="samples" id="sample1">
-                <div class="pact_div">
-                  <input type="number" name="name" min="0" max="10">       
-                </div>
-                <div class="blood_div">
-                  <input type="number" name="name" min="15" max="100">
-                </div>
-              </div>
+              <p id="physic_title">Today's Physical Activity Level <input type="number" id="input2_1" name="input2_1" min="0" max="10"></p>
 
-            <button type="button" class="add-button" onClick="addSamplee()" name="addSample" value="addSample">Add Sample</button> 
-            <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Sensitivity</button>
+              <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Sensitivity</button>
 
           </form>
 
@@ -85,19 +74,23 @@
 
       <script>
 
-      function addSamplee(){
-        var counter = 2;
-        var div = document.getElementById("sample1");
+          var counter = 2;
+          function addSamplee(){
 
-        var sampleDiv = '<div class="samples" id="sample'+ counter + '""><div class="pact_div"><input type="number name="name" min="0" max="10"></div><div class="blood_div"><input type="number" name="name" min="15" max="100"></div></div>';
+              var div = document.getElementById("sampleslabel");
 
-        div.innerHTML += sampleDiv;
-        e.prventDefault();
-        counter++;
-      }
+              if(counter<=10){
+                  var sampleDiv = '<div class="samples" id="sample"><div class="pact_div"><input id="p'+ counter +'" type="number name="name" min="0" max="10"></div><div class="blood_div"><input id="b' + counter + '" type="number" name="name" min="15" max="100"></div></div>';
+                  div.innerHTML += sampleDiv;
+                  counter++;
+              }
+              e.prventDefault();
 
-      /* When the user clicks on the button, 
-      toggle between hiding and showing the dropdown content */
+          }
+
+
+          /* When the user clicks on the button,
+          toggle between hiding and showing the dropdown content */
       function myFunction() {
           document.getElementById("myDropdown").classList.toggle("show");
       }

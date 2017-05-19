@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Afonso
-  Date: 15/0/2017
+  Date: 15/05/2017
   Time: 16:57
   To change this template use File | Settings | File Templates.
 --%>
@@ -44,6 +44,21 @@
             <li><%= mealtimeInsulinDose.getWebServiceName(2)%></li>
         </ul>
     </div>
+
+    <script>
+
+        function myFunction() {
+
+            var panel = document.getElementById("panel");
+            if (panel.style.display === "-webkit-box") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "-webkit-box";
+            }
+
+        }
+
+    </script>
 
 </body>
 </html>
