@@ -27,7 +27,7 @@ public class PersonalSensitivityToInsulin {
     }
 
     public void setInput2_1(int input2_1) {
-        System.out.println("qwfegrht");
+        System.out.println("aqui");
         this.input2_1 = input2_1;
     }
 

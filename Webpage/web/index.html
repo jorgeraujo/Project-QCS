@@ -64,7 +64,21 @@
           <form action="personalSensitivityToInsulin.jsp" method="get">
 
               <p id="physic_title">Today's Physical Activity Level <input type="number" id="input2_1" name="input2_1" min="0" max="10"></p>
-              
+              <p class="titles" id="plevel">Physical Activity Level</p>
+              <p class="titles" id="blevel"> Blood Sugar </p>
+              <div id="sampleslabel">
+                  <div class="samples" id="sample1">
+                      <div class="pact_div">
+                          <input id="p1" type="number" name="p1" min="0" max="10">
+                      </div>
+                      <div class="blood_div">
+                          <input id="b1" type="number" name="b1" min="15" max="100">
+                      </div>
+                  </div>
+              </div>
+
+              <button type="button" class="add-button" onClick="addSamplee()" name="addSample" value="addSample" >Add Sample</button>
+
               <button class="drop-submit-button" name="action" value="calculateInsuline" type="submit">Calculate Sensitivity</button>
 
           </form>
@@ -80,7 +94,7 @@
               var div = document.getElementById("sampleslabel");
 
               if(counter<=10){
-                  var sampleDiv = '<div class="samples" id="sample"><div class="pact_div"><input id="p'+ counter +'" type="number name="name" min="0" max="10"></div><div class="blood_div"><input id="b' + counter + '" type="number" name="name" min="15" max="100"></div></div>';
+                  var sampleDiv = '<div class="samples" id="sample"><div class="pact_div"><input name="p'+ counter +'" id="p'+ counter +'" type="number name="name" min="0" max="10"></div><div class="blood_div"><input name="b'+ counter +'" id="b' + counter + '" type="number" name="name" min="15" max="100"></div></div>';
                   div.innerHTML += sampleDiv;
                   counter++;
               }
