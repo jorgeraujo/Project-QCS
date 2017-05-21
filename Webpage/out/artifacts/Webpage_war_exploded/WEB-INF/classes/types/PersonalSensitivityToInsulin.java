@@ -13,6 +13,10 @@ import java.util.List;
 public class PersonalSensitivityToInsulin {
 
     private int input2_1;
+    private int input2_2;
+    private int input2_3;
+    private int input2_4;
+    private int input2_5;
     ArrayList<Integer> list1;
     ArrayList<Integer> list2;
     private int p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
@@ -29,6 +33,39 @@ public class PersonalSensitivityToInsulin {
     public void setInput2_1(int input2_1) {
         this.input2_1 = input2_1;
     }
+
+    public int getInput2_2() {
+        return input2_2;
+    }
+
+    public void setInput2_2(int input2_2) {
+        this.input2_2 = input2_2;
+    }
+
+    public int getInput2_3() {
+        return input2_3;
+    }
+
+    public void setInput2_3(int input2_3) {
+        this.input2_3 = input2_3;
+    }
+
+    public int getInput2_4() {
+        return input2_4;
+    }
+
+    public void setInput2_4(int input2_4) {
+        this.input2_4 = input2_4;
+    }
+
+    public int getInput2_5() {
+        return input2_5;
+    }
+
+    public void setInput2_5(int input2_5) {
+        this.input2_5 = input2_5;
+    }
+
 
     public List<Integer> getList1() {
         return list1;
@@ -242,6 +279,7 @@ public class PersonalSensitivityToInsulin {
 
 
     public class Webservice extends Thread{
+        private int personal;
         private int result;
         private String name;
 
@@ -257,7 +295,8 @@ public class PersonalSensitivityToInsulin {
             try {
                 InsulinService service = new InsulinService(new URL("http://localhost:8081/insulin?wsdl"));
                 Insulin proxy = service.getInsulinPort();
-                result = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
+                personal = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
+                result = proxy.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal); //change this parameters
             } catch (Exception e) {
                 System.out.println(e);
             }

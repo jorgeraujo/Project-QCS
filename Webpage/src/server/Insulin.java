@@ -114,7 +114,7 @@ public class Insulin { //return the number of units of rapid acting insulin need
 		//BigDecimal physicalActivityLevelDecimal = new BigDecimal(physicalActivityLevel);
 		//BigDecimal result = alpha.multiply(physicalActivityLevelDecimal.add(beta));
 		double result = alpha + beta * (double) physicalActivityLevel;
-		
+
 		//return (int) Math.ceil(result.doubleValue());
 		return (int) Math.ceil(result);
 	}
