@@ -38,10 +38,9 @@
 </div>
 <div id="panel">
     <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li><%= personalSensitivityToInsulin.getWebServiceName(0)%></li>
+        <li><%= personalSensitivityToInsulin.getWebServiceName(1)%></li>
+        <li><%= personalSensitivityToInsulin.getWebServiceName(2)%></li>
     </ul>
 </div>
 

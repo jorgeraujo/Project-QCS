@@ -4,6 +4,9 @@ import static java.lang.Math.max;
 public class Voter {
 
     public static int vote(int[] results, int n){
+
+
+
         int [] values = new int[999];
         int bigger = -1;
         int best = 0;
@@ -34,5 +37,6 @@ public class Voter {
             return which;
         }
         return -1;
+
     }
 }
