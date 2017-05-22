@@ -25,10 +25,15 @@ public class BackgroundInsulinDose {
     }
 
     public String getResult(){
-        runThreads();
-        finalResult = Voter.vote(results, n);
+        for (int i = 0; i < 3; i++){
+            runThreads();
+            finalResult = Voter.vote(results, n);
 
-        if (finalResult != -1){
+            if (finalResult != -1){
+                break;
+            }
+        }
+        if (finalResult != -1) {
             return Integer.toString(finalResult);
         }
         else{

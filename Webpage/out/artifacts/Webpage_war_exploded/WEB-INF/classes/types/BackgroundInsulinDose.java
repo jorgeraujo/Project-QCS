@@ -14,7 +14,7 @@ public class BackgroundInsulinDose {
     private Webservice webservices[] = new Webservice[n];
     private int results[] = new int[n];
     private int finalResult;
-    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.10:8080/WebServiceQCS/services/InsulinDoseCalculator?wsdl", "http://10.17.1.24:9000/InsulinDoseCalculatorEndpoint?wsdl"};
+    private String urls[] = {"http://localhost:8081/insulin?wsdl", "http://localhost:8081/insulin?wsdl", "http://localhost:8081/insulin?wsdl"};
 
     public int getInput3_1() {
         return input3_1;
@@ -25,10 +25,15 @@ public class BackgroundInsulinDose {
     }
 
     public String getResult(){
-        runThreads();
-        finalResult = Voter.vote(results, n);
+        for (int i = 0; i < 3; i++){
+            runThreads();
+            finalResult = Voter.vote(results, n);
 
-        if (finalResult != -1){
+            if (finalResult != -1){
+                break;
+            }
+        }
+        if (finalResult != -1) {
             return Integer.toString(finalResult);
         }
         else{
