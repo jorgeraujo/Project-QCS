@@ -34,16 +34,14 @@ public class Voter {
             }
         }
 
-        if (n - countInvalid == 1){
+        /*if (n - countInvalid == 1){
             return which;
         }
 
-        else if ( ((n - countInvalid) %2) == 0){
-            half = (n/2);
-        }
-        else{
-            half = (n/2) + 1;
-        }
+        else*/ //if ( ((n /*- countInvalid*/) %2) == 0){
+        half = (n/2);
+        //}
+
 
         if (best > half){
             return which;
