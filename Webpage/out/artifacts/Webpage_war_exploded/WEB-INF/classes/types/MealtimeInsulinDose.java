@@ -18,6 +18,7 @@ public class MealtimeInsulinDose {
     private int finalResult;
     private Webservice webservices[] = new Webservice[n];
     private int results[] = new int[n];
+    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.10:8080/WebServiceQCS/services/InsulinDoseCalculator?wsdl", "http://10.17.1.24:9000/InsulinDoseCalculatorEndpoint?wsdl"};
 
     public int getInput1_1() {
         return input1_1;
@@ -69,14 +70,14 @@ public class MealtimeInsulinDose {
             return Integer.toString(finalResult);
         }
         else{
-            return "Bad results, try again";
+            return "Error, try again";
         }
     }
 
     public void runThreads() {
 
         for (int i = 0; i < n; i++){
-            webservices[i] = new MealtimeInsulinDose.Webservice(""+i);
+            webservices[i] = new Webservice(urls[i]);
             webservices[i].start();
         }
 
@@ -101,6 +102,7 @@ public class MealtimeInsulinDose {
 
         public Webservice(String name){
             this.name = name;
+            this.result = -1;
         }
 
         public int getResult() {
@@ -109,7 +111,7 @@ public class MealtimeInsulinDose {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService(new URL("http://localhost:8081/insulin?wsdl"));
+                InsulinService service = new InsulinService(new URL(name));
                 Insulin proxy = service.getInsulinPort();
                 result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
             } catch (Exception e) {

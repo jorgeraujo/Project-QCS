@@ -25,6 +25,7 @@ public class PersonalSensitivityToInsulin {
     private Webservice webservices[] = new Webservice[n];
     private int results[] = new int[n];
     private int finalResult;
+    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.10:8080/WebServiceQCS/services/InsulinDoseCalculator?wsdl", "http://10.17.1.24:9000/InsulinDoseCalculatorEndpoint?wsdl"};
 
     public int getInput2_1() {
         return input2_1;
@@ -250,14 +251,14 @@ public class PersonalSensitivityToInsulin {
             return Integer.toString(finalResult);
         }
         else{
-            return "Bad results, try again";
+            return "Error, try again";
         }
     }
 
     public void runThreads() {
 
         for (int i = 0; i < n; i++){
-            webservices[i] = new Webservice(""+i);
+            webservices[i] = new Webservice(urls[i]);
             webservices[i].start();
         }
 
@@ -285,6 +286,7 @@ public class PersonalSensitivityToInsulin {
 
         public Webservice(String name){
             this.name = name;
+            this.result = -1;
         }
 
         public int getResult() {
@@ -293,7 +295,7 @@ public class PersonalSensitivityToInsulin {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService(new URL("http://localhost:8081/insulin?wsdl"));
+                InsulinService service = new InsulinService(new URL(name));
                 Insulin proxy = service.getInsulinPort();
                 personal = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
                 result = proxy.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal); //change this parameters
