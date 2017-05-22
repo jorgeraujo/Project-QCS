@@ -1,8 +1,11 @@
 package types;
 import client.Insulin;
 import client.InsulinService;
+import com.sun.xml.internal.ws.client.BindingProviderProperties;
 
+import javax.xml.ws.BindingProvider;
 import java.net.URL;
+import java.util.Map;
 
 public class BackgroundInsulinDose {
 
@@ -53,7 +56,12 @@ public class BackgroundInsulinDose {
     }
 
     public String getWebServiceName(int i){
-        return this.webservices[i].name;
+        if (this.webservices[i].result == -1){
+            return (this.webservices[i].name + " - Timeout");
+        }
+        else{
+            return (this.webservices[i].name + " - "+this.webservices[i].result);
+        }
     }
 
     public class Webservice extends Thread{
@@ -69,10 +77,14 @@ public class BackgroundInsulinDose {
             return this.result;
         }
 
+
         public void run() {
             try {
                 InsulinService service = new InsulinService(new URL(name));
                 Insulin proxy = service.getInsulinPort();
+                Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
+                requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 2000);
+                requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 2000);
                 result = proxy.backgroundInsulinDose(getInput3_1());
             } catch (Exception e) {
                 System.out.println(e);

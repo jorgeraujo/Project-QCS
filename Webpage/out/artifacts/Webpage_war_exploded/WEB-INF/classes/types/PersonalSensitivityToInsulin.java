@@ -2,10 +2,13 @@ package types;
 
 import client.Insulin;
 import client.InsulinService;
+import com.sun.xml.internal.ws.client.BindingProviderProperties;
 
+import javax.xml.ws.BindingProvider;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Afonso on 17/05/2017.
@@ -275,7 +278,12 @@ public class PersonalSensitivityToInsulin {
     }
 
     public String getWebServiceName(int i){
-        return this.webservices[i].name;
+        if (this.webservices[i].result == -1){
+            return (this.webservices[i].name + " - Timeout");
+        }
+        else{
+            return (this.webservices[i].name + " - "+this.webservices[i].result);
+        }
     }
 
 
@@ -297,6 +305,9 @@ public class PersonalSensitivityToInsulin {
             try {
                 InsulinService service = new InsulinService(new URL(name));
                 Insulin proxy = service.getInsulinPort();
+                Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
+                requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 2000);
+                requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 2000);
                 personal = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
                 result = proxy.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal); //change this parameters
             } catch (Exception e) {

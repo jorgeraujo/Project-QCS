@@ -2,8 +2,11 @@ package types;
 
 import client.Insulin;
 import client.InsulinService;
+import com.sun.xml.internal.ws.client.BindingProviderProperties;
 
+import javax.xml.ws.BindingProvider;
 import java.net.URL;
+import java.util.Map;
 
 /**
  * Created by Afonso on 17/05/2017.
@@ -93,7 +96,12 @@ public class MealtimeInsulinDose {
     }
 
     public String getWebServiceName(int i){
-        return this.webservices[i].name;
+        if (this.webservices[i].result == -1){
+            return (this.webservices[i].name + " - Timeout");
+        }
+        else{
+            return (this.webservices[i].name + " - "+this.webservices[i].result);
+        }
     }
 
     public class Webservice extends Thread{
@@ -113,6 +121,9 @@ public class MealtimeInsulinDose {
             try {
                 InsulinService service = new InsulinService(new URL(name));
                 Insulin proxy = service.getInsulinPort();
+                Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
+                requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 2000);
+                requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 2000);
                 result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
             } catch (Exception e) {
                 System.out.println(e);
