@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9eb09cfe-5041-4d30-adc4-f2badb43ad49" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/classes/types/BackgroundInsulinDose.java" afterPath="$PROJECT_DIR$/web/WEB-INF/classes/types/BackgroundInsulinDose.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/classes/types/MealtimeInsulinDose.java" afterPath="$PROJECT_DIR$/web/WEB-INF/classes/types/MealtimeInsulinDose.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/classes/types/PersonalSensitivityToInsulin.java" afterPath="$PROJECT_DIR$/web/WEB-INF/classes/types/PersonalSensitivityToInsulin.java" />
-    </list>
+    <list default="true" id="9eb09cfe-5041-4d30-adc4-f2badb43ad49" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,7 +71,7 @@
       <file leaf-file-name="BackgroundInsulinDose.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/classes/types/BackgroundInsulinDose.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1551">
+            <state relative-caret-position="814">
               <caret line="86" column="84" lean-forward="false" selection-start-line="86" selection-start-column="84" selection-end-line="86" selection-end-column="84" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -823,15 +819,15 @@
       <workItem from="1495012065215" duration="1260000" />
       <workItem from="1495032166169" duration="52234000" />
       <workItem from="1495460419160" duration="161000" />
-      <workItem from="1495460672280" duration="2969000" />
+      <workItem from="1495460672280" duration="4006000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56992000" />
+    <option name="totallyTimeSpent" value="58029000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -853,7 +849,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37032843" sideWeight="0.49785176" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15288788" sideWeight="0.49785176" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13480128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1114,7 +1110,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/classes/types/BackgroundInsulinDose.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1551">
+        <state relative-caret-position="814">
           <caret line="86" column="84" lean-forward="false" selection-start-line="86" selection-start-column="84" selection-end-line="86" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
