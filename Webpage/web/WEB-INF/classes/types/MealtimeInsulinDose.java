@@ -21,7 +21,7 @@ public class MealtimeInsulinDose {
     private int finalResult;
     private Webservice webservices[] = new Webservice[n];
     private int results[] = new int[n];
-    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.10:8080/WebServiceQCS/services/InsulinDoseCalculator?wsdl", "http://10.17.1.24:9000/InsulinDoseCalculatorEndpoint?wsdl"};
+    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.14:9000/InsulinDoseCalculator?wsdl", "http://localhost:8081/insulin?wsdl"};
 
     public int getInput1_1() {
         return input1_1;
@@ -85,7 +85,7 @@ public class MealtimeInsulinDose {
     public void runThreads() {
 
         for (int i = 0; i < n; i++){
-            webservices[i] = new Webservice(urls[i]);
+            webservices[i] = new Webservice(urls[i], i);
             webservices[i].start();
         }
 
@@ -112,9 +112,11 @@ public class MealtimeInsulinDose {
     public class Webservice extends Thread{
         private int result;
         private String name;
+        private int i;
 
-        public Webservice(String name){
+        public Webservice(String name, int i){
             this.name = name;
+            this.i = i;
             this.result = -1;
         }
 
@@ -124,12 +126,33 @@ public class MealtimeInsulinDose {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService(new URL(name));
-                Insulin proxy = service.getInsulinPort();
-                Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
-                requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 2000);
-                requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 2000);
-                result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
+                if (this.i == 0){
+                    InsulinDoseCalculator.InsulinDoseCalculatorService service1 = new InsulinDoseCalculator.InsulinDoseCalculatorService(new URL(name));
+                    InsulinDoseCalculator.InsulinDoseCalculator proxy1 = service1.getInsulinDoseCalculatorPort();
+                    result = proxy1.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy1).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 665);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 665);
+                }
+                else if (this.i == 1){
+                    InsulinDoseCalculatorService.InsulinDoseCalculatorService service2 = new InsulinDoseCalculatorService.InsulinDoseCalculatorService(new URL(name));
+                    InsulinDoseCalculatorService.InsulinDoseCalculator proxy2 = service2.getInsulinDoseCalculatorPort();
+                    result = proxy2.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy2).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 665);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 665);
+                }
+                else if (this.i == 2){
+                    InsulinService service = new InsulinService(new URL(name));
+                    Insulin proxy = service.getInsulinPort();
+                    result = proxy.mealtimeInsulinDose(getInput1_1(), getInput1_2(), getInput1_3(),getInput1_4(),getInput1_5());
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 665);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 665);
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }

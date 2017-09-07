@@ -28,7 +28,7 @@ public class PersonalSensitivityToInsulin {
     private Webservice webservices[] = new Webservice[n];
     private int results[] = new int[n];
     private int finalResult;
-    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.10:8080/WebServiceQCS/services/InsulinDoseCalculator?wsdl", "http://10.17.1.24:9000/InsulinDoseCalculatorEndpoint?wsdl"};
+    private String urls[] = {"http://10.17.1.17:8081/insulindosecalculator?wsdl", "http://10.17.1.14:9000/InsulinDoseCalculator?wsdl", "http://localhost:8081/insulin?wsdl"};
 
     public int getInput2_1() {
         return input2_1;
@@ -266,7 +266,7 @@ public class PersonalSensitivityToInsulin {
     public void runThreads() {
 
         for (int i = 0; i < n; i++){
-            webservices[i] = new Webservice(urls[i]);
+            webservices[i] = new Webservice(urls[i], i);
             webservices[i].start();
         }
 
@@ -296,9 +296,11 @@ public class PersonalSensitivityToInsulin {
         private int personal;
         private int result;
         private String name;
+        private int i;
 
-        public Webservice(String name){
+        public Webservice(String name, int i){
             this.name = name;
+            this.i = i;
             this.result = -1;
         }
 
@@ -308,13 +310,37 @@ public class PersonalSensitivityToInsulin {
 
         public void run() {
             try {
-                InsulinService service = new InsulinService(new URL(name));
-                Insulin proxy = service.getInsulinPort();
-                Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
-                requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 2000);
-                requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 2000);
-                personal = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
-                result = proxy.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal); //change this parameters
+                if (this.i == 0){
+                    InsulinDoseCalculator.InsulinDoseCalculatorService service1 = new InsulinDoseCalculator.InsulinDoseCalculatorService(new URL(name));
+                    InsulinDoseCalculator.InsulinDoseCalculator proxy1 = service1.getInsulinDoseCalculatorPort();
+                    personal = proxy1.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
+                    result = proxy1.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal);
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy1).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 332);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 332);
+                }
+                else if (this.i == 0){
+                    InsulinDoseCalculatorService.InsulinDoseCalculatorService service2 = new InsulinDoseCalculatorService.InsulinDoseCalculatorService(new URL(name));
+                    InsulinDoseCalculatorService.InsulinDoseCalculator proxy2 = service2.getInsulinDoseCalculatorPort();
+                    personal = proxy2.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
+                    result = proxy2.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal);
+                    result = proxy2.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal);
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy2).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 332);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 332);
+                }
+                else if (this.i == 2){
+                    InsulinService service = new InsulinService(new URL(name));
+                    Insulin proxy = service.getInsulinPort();
+                    personal = proxy.personalSensitivityToInsulin(getInput2_1(), getList1(), getList2());
+                    result = proxy.mealtimeInsulinDose(getInput2_2(), getInput2_3(), getInput2_4(), getInput2_5(), personal);
+
+                    Map<String, Object> requestContext = ((BindingProvider)proxy).getRequestContext();
+                    requestContext.put(BindingProviderProperties.REQUEST_TIMEOUT, 332);
+                    requestContext.put(BindingProviderProperties.CONNECT_TIMEOUT, 332);
+                }
             } catch (Exception e) {
                 System.out.println(e);
             }
